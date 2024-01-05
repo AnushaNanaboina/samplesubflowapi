@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e1df130e-5ad3-4055-8e72-e843e6ae5bd1" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="samplesubflowapiFlow" doc:id="88333df6-2952-4904-9804-b0681243fe38" >
+		<http:listener doc:name="Listener" doc:id="88776b09-1916-4f0a-ad09-0d1ef6f4282f" config-ref="HTTP_Listener_config" path="/samplesubflow"/>
+		<logger level="WARN" doc:name="Logger" doc:id="1a735fad-499b-485d-97be-4bb68d643d20" message='#["Hello World"]'/>
+		<logger level="INFO" doc:name="Logger" doc:id="a52d5248-c582-494d-86ba-99ff48ee9c25" message='#["flow ends"]'/>
+		<flow-ref doc:name="Flow Reference" doc:id="0eae2332-d89f-4aae-8cda-6dad3ec8b724" name="samplesubflowapiSub_Flow"/>
+		<logger level="WARN" doc:name="Logger" doc:id="3d423188-906c-4f54-8ea2-4844d2310471" message='#["flow reference back"]'/>
+	</flow>
+	<sub-flow name="samplesubflowapiSub_Flow" doc:id="e5b44cc1-2cbd-48dc-9a6d-543dc1963d94" >
+		<logger level="INFO" doc:name="Logger" doc:id="19ccf327-acdb-4d6e-b11a-c0ed7774ebd4" message='#["added subflow"]'/>
+	</sub-flow>
+</mule>
